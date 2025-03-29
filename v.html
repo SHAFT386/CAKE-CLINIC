@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Clinic - Delicious Cakes for Every Occasion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e83e8c;
+            --secondary-color: #ff6b9d;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #343a40;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--light-gray);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+
+        .testimonial-slider {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .testimonial {
+            min-width: 100%;
+            padding: 30px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .testimonial p {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .customer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .customer img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .customer-info {
+            text-align: left;
+        }
+
+        .customer-info h4 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .customer-info span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .slider-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .slider-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* Cake Gallery Styles */
+        .cake-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .cake-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .cake-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .cake-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .cake-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .cake-card:hover .cake-img img {
+            transform: scale(1.05);
+        }
+
+        .cake-info {
+            padding: 20px;
+        }
+
+        .cake-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .cake-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .cake-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .add-to-cart {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-to-cart:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .testimonial {
+                padding: 20px;
+            }
+            
+            .testimonial p {
+                font-size: 1rem;
+            }
+
+            .customer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .customer img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .customer-info {
+                text-align: center;
+            }
+
+            .cake-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Cake Clinic Logo">
+                <h1>Cake Clinic</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#cakes">Our Cakes</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#flavors">Flavors</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+            <div class="whatsapp-icon">
+                <a href="https://wa.me/256706404077" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Sweet Moments Start Here</h2>
+                <p>Enjoy Life, Eat Cake</p>
+                <a href="#cakes" class="btn">Explore Our Cakes</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>Our Story</h2>
+                <p>In a small corner of Lugala, Masanafu, Kigobe, a dream took shape. A dream to create a haven where the sweet scent of freshly baked goods would fill the air, and the taste of warmth and love would be shared with every bite.</p>
+                <p>Our story begins with a passion for baking, passed down through generations of our family. As children, we would gather around our grandmother's kitchen, watching in awe as she mixed, kneaded, and baked her famous treats. The smell of sugar and spices, the feel of flour-dusted hands, and the joy of sharing our creations with loved ones - these memories sparked a fire within us.</p>
+                <p>Years went by, and our love for baking only grew stronger. We experimented with new recipes, techniques, and ingredients, always pushing the boundaries of what was possible. And then, the moment arrived - we decided to turn our passion into a career, and Cake Clinic was born.</p>
+                <div class="awards">
+                    <div class="award">
+                        <i class="fas fa-award"></i>
+                        <p>Best Cake Shop 2023</p>
+                    </div>
+                    <div class="award">
+                        <i class="fas fa-heart"></i>
+                        <p>1000+ Happy Customers</p>
+                    </div>
+                    <div class="award">
+                        <i class="fas fa-star"></i>
+                        <p>Premium Ingredients</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="about-cake.jpg" alt="About Cake Clinic">
+            </div>
+        </div>
+    </section>
+
+    <!-- Cakes Section -->
+    <section id="cakes" class="cakes">
+        <div class="container">
+            <h2>Our Cake Collection</h2>
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All Cakes</button>
+                <button class="category-btn" data-category="birthday">Birthday</button>
+                <button class="category-btn" data-category="wedding">Wedding</button>
+                <button class="category-btn" data-category="anniversary">Anniversary</button>
+                <button class="category-btn" data-category="custom">Pastries</button>
+            </div>
+            <div class="cake-gallery">
+                <!-- Birthday Cakes -->
+                <div class="cake-card" data-category="birthday">
+                    <div class="cake-img">
+                        <img src="images/birthday-cake1.jpg" alt="Chocolate Fudge Delight">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Chocolate Fudge Delight</h3>
+                        <p>Rich chocolate cake with fudge filling and chocolate buttercream.</p>
+                        <div class="cake-price">
+                            <span class="price">$45.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cake-card" data-category="birthday">
+                    <div class="cake-img">
+                        <img src="images/birthday-cake2.jpg" alt="Rainbow Birthday">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Rainbow Birthday</h3>
+                        <p>Colorful vanilla cake with rainbow layers and cream cheese frosting.</p>
+                        <div class="cake-price">
+                            <span class="price">$59.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cake-card" data-category="birthday">
+                    <div class="cake-img">
+                        <img src="images/birthday-cake3.jpg" alt="Superhero Birthday">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Superhero Birthday</h3>
+                        <p>Chocolate cake decorated with your favorite superhero design.</p>
+                        <div class="cake-price">
+                            <span class="price">$54.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wedding Cakes -->
+                <div class="cake-card" data-category="wedding">
+                    <div class="cake-img">
+                        <img src="images/wedding-cake1.jpg" alt="Elegant Wedding Cake">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Elegant Wedding Cake</h3>
+                        <p>Three-tier vanilla cake with raspberry filling and fondant icing.</p>
+                        <div class="cake-price">
+                            <span class="price">$299.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cake-card" data-category="wedding">
+                    <div class="cake-img">
+                        <img src="images/wedding-cake2.jpg" alt="Naked Wedding Cake">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Naked Wedding Cake</h3>
+                        <p>Trendy naked cake with fresh flowers and seasonal fruit.</p>
+                        <div class="cake-price">
+                            <span class="price">$249.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anniversary Cakes -->
+                <div class="cake-card" data-category="anniversary">
+                    <div class="cake-img">
+                        <img src="images/anniversary-cake1.jpg" alt="Golden Anniversary">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Golden Anniversary</h3>
+                        <p>Golden vanilla cake with champagne buttercream and edible gold leaf.</p>
+                        <div class="cake-price">
+                            <span class="price">$89.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cake-card" data-category="anniversary">
+                    <div class="cake-img">
+                        <img src="images/anniversary-cake2.jpg" alt="Red Velvet Romance">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Red Velvet Romance</h3>
+                        <p>Classic red velvet with cream cheese frosting and fresh berries.</p>
+                        <div class="cake-price">
+                            <span class="price">$65.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pastries -->
+                <div class="cake-card" data-category="custom">
+                    <div class="cake-img">
+                        <img src="images/pastry1.jpg" alt="Custom Photo Cake">
+                    </div>
+                    <div class="cake-info">
+                        <h3>Custom Photo Cake</h3>
+                        <p>Your favorite photo printed on a delicious vanilla or chocolate cake.</p>
+                        <div class="cake-price">
+                            <span class="price">$79.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cake-card" data-category="custom">
+                    <div class="cake-img">
+                        <img src="images/pastry2.jpg" alt="French Pastries">
+                    </div>
+                    <div class="cake-info">
+                        <h3>French Pastries</h3>
+                        <p>Assortment of delicate French pastries with various fillings.</p>
+                        <div class="cake-price">
+                            <span class="price">$39.99</span>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <h2>Cakes for Every Event</h2>
+            <div class="event-cards">
+                <div class="event-card">
+                    <img src="wedding-cake.jpg" alt="Wedding Cake">
+                    <h3>Weddings</h3>
+                    <p>Elegant multi-tier cakes that become the centerpiece of your special day.</p>
+                    <a href="#cakes" class="btn">View Options</a>
+                </div>
+                <div class="event-card">
+                    <img src="birthday-cake.jpg" alt="Birthday Cake">
+                    <h3>Birthdays</h3>
+                    <p>Fun, creative cakes for all ages that make birthdays extra special.</p>
+                    <a href="#cakes" class="btn">View Options</a>
+                </div>
+                <div class="event-card">
+                    <img src="anniversary-cake.jpg" alt="Anniversary Cake">
+                    <h3>Anniversaries</h3>
+                    <p>Romantic designs to celebrate your love and years together.</p>
+                    <a href="#cakes" class="btn">View Options</a>
+                </div>
+                <div class="event-card">
+                    <img src="graduation-cake.jpg" alt="Graduation Cake">
+                    <h3>Graduation Events</h3>
+                    <p>Professional yet delicious cakes for graduations.</p>
+                    <a href="#cakes" class="btn">View Options</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flavors Section -->
+    <section id="flavors" class="flavors">
+        <div class="container">
+            <h2>Our Delicious Flavors</h2>
+            <div class="flavor-tabs">
+                <button class="flavor-tab active" data-flavor="classic">Classic</button>
+                <button class="flavor-tab" data-flavor="chocolate">Chocolate</button>
+                <button class="flavor-tab" data-flavor="fruit">Fruit</button>
+                <button class="flavor-tab" data-flavor="specialty">Specialty</button>
+            </div>
+            <div class="flavor-content">
+                <div class="flavor-panel active" id="classic">
+                    <div class="flavor-item">
+                        <h3>Vanilla</h3>
+                        <p>Pure vanilla bean flavor with a light, fluffy texture.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>Red Velvet</h3>
+                        <p>Classic southern flavor with a hint of cocoa and cream cheese frosting.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>Marble</h3>
+                        <p>Perfect swirl of vanilla and chocolate.</p>
+                    </div>
+                </div>
+                <div class="flavor-panel" id="chocolate">
+                    <div class="flavor-item">
+                        <h3>Chocolate Fudge</h3>
+                        <p>Rich, dense chocolate cake with fudge filling.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>German Chocolate</h3>
+                        <p>Chocolate cake with coconut-pecan frosting.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>Chocolate Raspberry</h3>
+                        <p>Dark chocolate cake with raspberry filling.</p>
+                    </div>
+                </div>
+                <div class="flavor-panel" id="fruit">
+                    <div class="flavor-item">
+                        <h3>Lemon</h3>
+                        <p>Tangy lemon cake with lemon curd filling.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>Strawberry</h3>
+                        <p>Fresh strawberry flavor with real fruit pieces.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>Tropical</h3>
+                        <p>Pineapple and coconut blend with cream cheese frosting.</p>
+                    </div>
+                </div>
+                <div class="flavor-panel" id="specialty">
+                    <div class="flavor-item">
+                        <h3>Salted Caramel</h3>
+                        <p>Vanilla cake with salted caramel filling and buttercream.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>Cookies & Cream</h3>
+                        <p>Chocolate cake with crushed Oreo cookies throughout.</p>
+                    </div>
+                    <div class="flavor-item">
+                        <h3>Espresso</h3>
+                        <p>Rich coffee flavor with mocha buttercream.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-track">
+                    <div class="testimonial">
+                        <p>"The wedding cake was absolutely stunning and delicious! Our guests couldn't stop talking about it."</p>
+                        <div class="customer">
+                            <img src="customer1.jpg" alt="Sarah J.">
+                            <div class="customer-info">
+                                <h4>Sarah J.</h4>
+                                <span>Wedding Client</span>
+                            </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial">
+                        <p>"Every year I order my son's birthday cake from Cake Clinic and it's always the highlight of the party! The flavors are amazing and the designs are always perfect."</p>
+                        <div class="customer">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T.">
+                            <div class="customer-info">
+                                <h4>Michael T.</h4>
+                                <span>Birthday Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial">
+                        <p>"The custom anniversary cake was perfect - exactly what I envisioned and tasted even better than it looked! The staff was so helpful in bringing my idea to life."</p>
+                        <div class="customer">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa M.">
+                            <div class="customer-info">
+                                <h4>Lisa M.</h4>
+                                <span>Anniversary Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial">
+                        <p>"The graduation cake was not only beautiful but also incredibly delicious. It was the perfect centerpiece for our celebration! Everyone loved it."</p>
+                        <div class="customer">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David K.">
+                            <div class="customer-info">
+                                <h4>David K.</h4>
+                                <span>Graduation Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 5 -->
+                    <div class="testimonial">
+                        <p>"I've ordered multiple cakes from Cake Clinic for different events, and they never disappoint. Always fresh, beautifully decorated, and absolutely delicious!"</p>
+                        <div class="customer">
+                            <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Grace L.">
+                            <div class="customer-info">
+                                <h4>Grace L.</h4>
+                                <span>Regular Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                    <span class="dot" data-slide="4"></span>
+                </div>
+                <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <p><i class="fas fa-map-marker-alt"></i> Lugala, Kigobe, Kampala, Uganda</p>
+                <p><i class="fas fa-phone"></i> +256 706 404 077</p>
+                <p><i class="fas fa-envelope"></i> nshaft386@gmail.com</p>
+                <p><i class="fas fa-clock"></i> Open: Mon-Sat 8am-7pm, Sun 9am-5pm</p>
+                <div class="social-media">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="team-image">
+                <img src="team.jpg" alt="Cake Clinic Team">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <img src="logo.png" alt="Cake Clinic Logo">
+                <p>Enjoy Life, Eat Cake</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#cakes">Our Cakes</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#flavors">Flavors</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-subscribe">
+                <h3>Subscribe to Our Newsletter</h3>
+                <form id="subscribeForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+                <p>Get updates on special offers and new flavors!</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Cake Clinic. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navUl = document.querySelector('nav ul');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navUl.classList.toggle('show');
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navUl.classList.remove('show');
+                });
+            });
+            
+            // Testimonial Slider Functionality
+            const track = document.querySelector('.testimonial-track');
+            const testimonials = document.querySelectorAll('.testimonial');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev');
+            const nextBtn = document.querySelector('.next');
+            
+            let currentIndex = 0;
+            const totalTestimonials = testimonials.length;
+            
+            // Set initial position
+            updateSlider();
+            
+            // Next button
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalTestimonials;
+                updateSlider();
+            });
+            
+            // Previous button
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalTestimonials) % totalTestimonials;
+                updateSlider();
+            });
+            
+            // Dot navigation
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    currentIndex = parseInt(dot.dataset.slide);
+                    updateSlider();
+                });
+            });
+            
+            // Auto-rotate
+            let slideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalTestimonials;
+                updateSlider();
+            }, 5000);
+            
+            // Pause on hover
+            const slider = document.querySelector('.testimonial-slider');
+            slider.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalTestimonials;
+                    updateSlider();
+                }, 5000);
+            });
+            
+            function updateSlider() {
+                // Update track position
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            // Cake gallery functionality
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const cakeCards = document.querySelectorAll('.cake-card');
+            
+            // Filter cakes by category
+            function filterCakes(category) {
+                cakeCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Initial filter (show all)
+            filterCakes('all');
+            
+            // Category buttons
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterCakes(btn.dataset.category);
+                });
+            });
+
+            // Flavor tabs functionality
+            const flavorTabs = document.querySelectorAll('.flavor-tab');
+            const flavorPanels = document.querySelectorAll('.flavor-panel');
+            
+            flavorTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and panels
+                    flavorTabs.forEach(t => t.classList.remove('active'));
+                    flavorPanels.forEach(p => p.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding panel
+                    tab.classList.add('active');
+                    const panelId = tab.dataset.flavor;
+                    document.getElementById(panelId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

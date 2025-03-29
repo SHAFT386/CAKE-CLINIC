@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Clinic - Event Cakes Gallery</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #fff9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-button {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-button:hover {
+            background-color: #f8f8f8;
+            color: #ff6b81;
+        }
+        
+        .nav-button.active {
+            color: #ff6b81;
+            font-weight: bold;
+        }
+        
+        .nav-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background-color: #ff6b81;
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ff6b81;
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #ff6b81;
+            margin: 10px auto;
+        }
+        
+        .event-info {
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        .cake-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .cake-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cake-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .cake-info {
+            padding: 15px;
+        }
+        
+        .cake-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .cake-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        /* Book Button */
+        .book-btn {
+            position: absolute;
+            bottom: 70px;
+            right: 10px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .book-btn:hover {
+            background-color: #128C7E;
+            transform: scale(1.05);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        
+        .page-btn {
+            padding: 8px 15px;
+            background-color: #ff6b81;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .page-btn:hover {
+            background-color: #ff4757;
+        }
+        
+        .page-btn.active {
+            background-color: #ff4757;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #ff6b81;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .book-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Cake Clinic</div>
+            <div class="tagline">Where Every Celebration Gets Its Perfect Cake</div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <button class="nav-button active" data-event="wedding">Wedding Cakes</button>
+                <button class="nav-button" data-event="birthday">Birthday Cakes</button>
+                <button class="nav-button" data-event="anniversary">Anniversary Cakes</button>
+                <button class="nav-button" data-event="baby-shower">Baby Shower Cakes</button>
+                <button class="nav-button" data-event="graduation">Graduation Cakes</button>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <section class="gallery-section">
+            <h2 class="section-title" id="current-event">Wedding Cakes</h2>
+            <p class="event-info" id="event-description">
+                Our exquisite wedding cakes are designed to make your special day even more memorable. 
+                Each cake is crafted with precision and care, using only the finest ingredients.
+            </p>
+            
+            <div class="gallery-grid" id="cake-gallery">
+                <!-- Cake cards will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <!-- Pagination buttons will be inserted here by JavaScript -->
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">Cake Clinic</div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 Cake Clinic. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Image Modal -->
+    <div class="modal" id="image-modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img class="modal-img" id="modal-image" src="" alt="Enlarged cake image">
+        </div>
+    </div>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        // Cake data for different events
+        const cakeData = {
+            wedding: {
+                title: "Wedding Cakes",
+                description: "Our exquisite wedding cakes are designed to make your special day even more memorable. Each cake is crafted with precision and care, using only the finest ingredients.",
+                cakes: [
+                    {
+                        id: "wedding-1",
+                        title: "Classic White Wedding Cake",
+                        description: "Elegant three-tier cake with white frosting",
+                        imgUrl: "wedding cakes/wedding cake-1.jpg"
+                    },
+                    {
+                        id: "wedding-2", 
+                        title: "Rustic Naked Cake",
+                        description: "Two-tier naked cake with fresh berries",
+                        imgUrl: "images/wedding/rustic-naked.jpg"
+                    },
+                    {
+                        id: "wedding-23", 
+                        title: "Floral Wedding Cake",
+                        description: "Beautiful cake with fresh flower decorations",
+                        imgUrl: "images/wedding/floral-cake.jpg"
+                    }
+                ]
+            },
+            birthday: {
+                title: "Birthday Cakes",
+                description: "Celebrate your special day with our delicious and creative birthday cakes. From kids' parties to milestone birthdays, we have the perfect cake for every age.",
+                cakes: [
+                    {
+                        id: "birthday-1",
+                        title: "Chocolate Birthday Cake",
+                        description: "Rich chocolate cake with buttercream frosting",
+                        imgUrl: "images/birthday/chocolate-cake.jpg"
+                    }
+                ]
+            },
+            anniversary: {
+                title: "Anniversary Cakes",
+                description: "Mark your love story with our beautiful anniversary cakes. Whether it's your 1st or 50th anniversary, we'll create a cake that celebrates your journey.",
+                cakes: []
+            },
+            "baby-shower": {
+                title: "Baby Shower Cakes",
+                description: "Welcome the little one with our adorable baby shower cakes. Choose from gender-neutral, pink, or blue designs to match your theme.",
+                cakes: []
+            },
+            graduation: {
+                title: "Graduation Cakes",
+                description: "Celebrate academic achievements with our graduation cakes. Perfect for high school, college, or any educational milestone.",
+                cakes: [
+                {
+                        id: "wedding-1",
+                        title: "Classic White Wedding Cake",
+                        description: "Elegant three-tier cake with white frosting",
+                        imgUrl: "wedding cakes/wedding cake-1.jpg"
+                    },
+                ]
+            }
+        };
+        
+        // Current state
+        let currentEvent = 'wedding';
+        let currentPage = 1;
+        const cakesPerPage = 12;
+        
+        // DOM elements
+        const cakeGallery = document.getElementById('cake-gallery');
+        const pagination = document.getElementById('pagination');
+        const navButtons = document.querySelectorAll('.nav-button');
+        const currentEventTitle = document.getElementById('current-event');
+        const eventDescription = document.getElementById('event-description');
+        const imageModal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const closeModal = document.querySelector('.close-modal');
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGallery();
+            setupEventListeners();
+        });
+        
+        // Render the cake gallery based on current event and page
+        function renderGallery() {
+            const eventData = cakeData[currentEvent];
+            const startIndex = (currentPage - 1) * cakesPerPage;
+            const endIndex = startIndex + cakesPerPage;
+            const cakesToShow = eventData.cakes.slice(startIndex, endIndex);
+            
+            // Update event title and description
+            currentEventTitle.textContent = eventData.title;
+            eventDescription.textContent = eventData.description;
+            
+            // Clear current gallery
+            cakeGallery.innerHTML = '';
+            
+            // Add cakes to gallery
+            cakesToShow.forEach(cake => {
+                const cakeCard = document.createElement('div');
+                cakeCard.className = 'cake-card';
+                cakeCard.innerHTML = `
+                    <img src="${cake.imgUrl}" alt="${cake.title}" class="cake-img">
+                    <div class="cake-info">
+                        <h3 class="cake-title">${cake.title}</h3>
+                        <p class="cake-desc">${cake.description}</p>
+                    </div>
+                `;
+                
+                // Create BOOK button
+                const bookBtn = document.createElement('button');
+                bookBtn.className = 'book-btn';
+                bookBtn.textContent = 'BOOK';
+                bookBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent triggering the card click
+                    const whatsappUrl = `https://wa.me/256709835204?text=Hello!%20I%20want%20to%20book%20this%20cake:%20${cake.title}%20${encodeURIComponent(cake.imgUrl)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+                cakeCard.appendChild(bookBtn);
+                
+                // Add click event for modal
+                cakeCard.addEventListener('click', () => openModal(cake.imgUrl));
+                cakeGallery.appendChild(cakeCard);
+            });
+            
+            // Render pagination
+            renderPagination(eventData.cakes.length);
+        }
+        
+        // Render pagination buttons
+        function renderPagination(totalCakes) {
+            const totalPages = Math.ceil(totalCakes / cakesPerPage);
+            
+            pagination.innerHTML = '';
+            
+            // Previous button
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'page-btn';
+                prevBtn.textContent = 'Previous';
+                prevBtn.addEventListener('click', () => {
+                    currentPage--;
+                    renderGallery();
+                });
+                pagination.appendChild(prevBtn);
+            }
+            
+            // Page buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderGallery();
+                });
+                pagination.appendChild(pageBtn);
+            }
+            
+            // Next button
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'page-btn';
+                nextBtn.textContent = 'Next';
+                nextBtn.addEventListener('click', () => {
+                    currentPage++;
+                    renderGallery();
+                });
+                pagination.appendChild(nextBtn);
+            }
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Navigation buttons
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentEvent = button.dataset.event;
+                    currentPage = 1;
+                    renderGallery();
+                });
+            });
+            
+            // Modal close button
+            closeModal.addEventListener('click', () => {
+                imageModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    imageModal.style.display = 'none';
+                }
+            });
+        }
+        
+        // Open modal with enlarged image
+        function openModal(imgUrl) {
+            modalImage.src = imgUrl;
+            imageModal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
